@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/kalviumcommunity/S54_MythBuster/issues"
   },
-  "homepage": "https://github.com/kalviumcommunity/S54_MythBuster#readme"
+  "homepage": "https://github.com/kalviumcommunity/S54_MythBuster#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
 }
