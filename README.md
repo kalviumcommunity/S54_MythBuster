@@ -1,10 +1,12 @@
 # Myth Buster 🤯
 
+## Idea - List of myths debunked over the last decade, with a focus on including funny myths
+
 ## Features ✌
 
 1. **User Vote/Ranking:**
    - Users can vote and rank myths based on their preferences.
-2. **Sort/Filter:**
+2. **Sort/Filter:**n
    - Sorting and filtering options for easy navigation through debunked myths.
 3. **User Generated Lists:**
    - Users can create and share their lists of debunked myths, fostering community engagement.
