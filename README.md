@@ -6,7 +6,7 @@
 
 1. **User Vote/Ranking:**
    - Users can vote and rank myths based on their preferences.
-2. **Sort/Filter:**n
+2. **Sort/Filter:**
    - Sorting and filtering options for easy navigation through debunked myths.
 3. **User Generated Lists:**
    - Users can create and share their lists of debunked myths, fostering community engagement.
