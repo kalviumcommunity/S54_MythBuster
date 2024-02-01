@@ -1,4 +1,4 @@
-const Myth = require("../models/schema.js")
+const Myth = require("../models/posts.js")
 
 const myth1 = new Myth({
   postId: 1,
