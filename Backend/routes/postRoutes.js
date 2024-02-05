@@ -4,11 +4,11 @@ import {getMythData,findMythById,addMyth,updateMythById,deleteMythById} from "..
 const router = express.Router()
 
 
-router.get("/myths",getMythData)
-router.get("/myths/:id",findMythById)
-router.post("/myths",addMyth)
-router.post("/myths/:id",updateMythById)
-router.delete("/myths/:id",deleteMythById)
+router.get("/",getMythData)
+router.get("/:id",findMythById)
+router.post("/",addMyth)
+router.post("/:id",updateMythById)
+router.delete("/:id",deleteMythById)
 
 
 export default router

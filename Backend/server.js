@@ -7,11 +7,13 @@ dotenv.config()
 const app = express()
 const Port = process.env.PORT || 5000
 
-
+app.get("/",(req,res)=>{
+  res.send("Welcome To the Backend")
+})
 app.use(express.json()) //? to parse the incoming requests with JSON payloads (from req.body)
 
 // * Functional Routes related to Myth
-app.use("/",postRoutes)
+app.use("/myths",postRoutes)
 
 // & Functional Routes related to Authentication
 app.use("/api/auth",authRoutes)
