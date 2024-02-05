@@ -1,0 +1,35 @@
+meta {
+  name: POST MYTH
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:5000/myths/1
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "postId": 123,
+    "Title": "The Myth of the Kraken",
+    "Image": "https://example.com/kraken.jpg",
+    "UserId": "6324b877e4e2432100000001", // Replace with a valid ObjectId
+    "Likes": 45,
+    "Comments": [
+      {
+        "userId": "6324b877e4e2432100000002", // Replace with a valid ObjectId
+        "content": "Wow, the Kraken is terrifying!",
+        "time": "2024-02-05T08:46:00.000Z"
+      },
+      {
+        "userId": "6324b877e4e2432100000003", // Replace with a valid ObjectId
+        "content": "I wonder if it's real...",
+        "time": "2024-02-05T08:50:00.000Z"
+      }
+    ],
+    "Time": "2024-02-05T08:30:00.000Z"
+  }
+  
+}
