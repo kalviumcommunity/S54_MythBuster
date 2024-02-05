@@ -1,4 +1,4 @@
-const Myth = require("../models/posts.js")
+import Myth from "./posts";
 
 const myth1 = new Myth({
   postId: 1,
@@ -141,14 +141,7 @@ const myth10 = new Myth({
   ],
 });
 
-const mongoose = require("mongoose")
-// Connect to your local MongoDB instance
-mongoose.connect('mongodb://localhost:27017/Myth-Bu ster', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-  .then(() => console.log('Connected to local MongoDB'))
-  .catch(err => console.error('Error connecting to local MongoDB:', err));
+
 
 const mythData = [myth1,myth2,myth3,myth4,myth5,myth6,myth7,myth8,myth9,myth10 
   

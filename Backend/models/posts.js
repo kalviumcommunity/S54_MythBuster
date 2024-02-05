@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
+
 const Schema = mongoose.Schema;
 
 const MythSchema = new Schema({
@@ -12,4 +13,7 @@ const MythSchema = new Schema({
   Time: { type: Date, default: Date.now() }, 
 }, { timestamps: true });
 
-module.exports = mongoose.model("Myth", MythSchema);
+
+Myth = mongoose.model("Myth", MythSchema)
+
+export default  Myth;

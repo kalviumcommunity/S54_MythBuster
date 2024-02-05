@@ -1,0 +1,22 @@
+meta {
+  name: LOGOUT
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:5000/api/auth/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+  
+    "username" : "Yagna",
+    "password" : "Yagna#455"
+    
+  }
+    
+    
+}

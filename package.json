@@ -1,0 +1,31 @@
+{
+  "type": "module",
+  "name": "s54_mythbuster",
+  "version": "1.0.0",
+  "description": "1. **User Vote/Ranking:**\r    - Users can vote and rank myths based on their preferences.\r 2. **Sort/Filter:**n\r    - Sorting and filtering options for easy navigation through debunked myths.\r 3. **User Generated Lists:**\r    - Users can create and share their lists of debunked myths, fostering community engagement.\r 4. **Myth Tags:**\r    - Categorize myths with tags for quick identification and thematic grouping.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon Backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kalviumcommunity/S54_MythBuster.git"
+  },
+  "author": "sarvesh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kalviumcommunity/S54_MythBuster/issues"
+  },
+  "homepage": "https://github.com/kalviumcommunity/S54_MythBuster#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.1.1",
+    "validator": "^13.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
+}
