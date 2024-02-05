@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const MythSchema = new Schema({
-  postId: { type: Number, required: true },  
+  postId: { type: Number },  
   Title: { type: String, required: true },   
   Image: String,
   UserId: {type: mongoose.Schema.Types.ObjectId,
@@ -14,6 +14,6 @@ const MythSchema = new Schema({
 }, { timestamps: true });
 
 
-Myth = mongoose.model("Myth", MythSchema)
+const Myth = mongoose.model("Myth", MythSchema)
 
 export default  Myth;
