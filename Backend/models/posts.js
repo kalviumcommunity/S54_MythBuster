@@ -8,6 +8,7 @@ const MythSchema = new Schema({
   Image: String,
   UserId: {type: mongoose.Schema.Types.ObjectId,
   ref: "User"},
+  Description: {type: String},
   Likes: Number,
   Comments: Array,
   Time: { type: Date, default: Date.now() }, 
