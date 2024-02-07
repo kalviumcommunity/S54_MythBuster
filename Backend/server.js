@@ -3,9 +3,13 @@ import dotenv from "dotenv"
 import {ConnectToDB} from "./db/connectToMongoDB.js"
 import postRoutes from "./routes/postRoutes.js"
 import authRoutes from "./routes/authRoutes.js"
+import cors from "cors"
+
 dotenv.config()
 const app = express()
 const Port = process.env.PORT || 5000
+
+app.use(cors())
 
 app.get("/",(req,res)=>{
   res.send("Welcome To the Backend")
