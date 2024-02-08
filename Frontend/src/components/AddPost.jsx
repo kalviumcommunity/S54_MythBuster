@@ -3,7 +3,7 @@ import { useState } from "react"
 const AddPost = () => {
 
     const [newMyth,setNewMyth] = useState({
-        title: "",
+        Title: "",
         Description:"",
         Image:"",
         Likes: 0
@@ -12,7 +12,7 @@ const AddPost = () => {
     const Submit = async (e) => {
         e.preventDefault()
         try {
-          const response = await fetch('https://mythbuster.onrender.com/myths',{
+          const response = await fetch('http://localhost:5000/myths',{
             method: "POST",
             headers: {"Content-Type" :"application/json"},
             body: JSON.stringify(newMyth)
@@ -39,7 +39,7 @@ const AddPost = () => {
                 type="text"
                 placeholder="Enter Name"
                 className="form-control"
-                onChange={(e) => setNewMyth({ ...newMyth, title: e.target.value })}
+                onChange={(e) => setNewMyth({ ...newMyth, Title: e.target.value })}
                 />
             </div>
             <div className="mb-2">
