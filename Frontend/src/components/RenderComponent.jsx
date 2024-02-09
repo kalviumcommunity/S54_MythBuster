@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 
-
+import axios from "axios"
+import { Link } from 'react-router-dom';
 
 
 
@@ -8,27 +9,36 @@ import { useEffect, useState } from 'react'
 const RenderComponent = () => {
 
     const [myths,setMyths] = useState([])
- 
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://mythbuster.onrender.com/myths');
+        const data = await response.json();
+        setMyths(data.data || []); 
+      } catch (error) {
+        console.error('Error fetching myths:', error);
+      }
+    };
     useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const response = await fetch('https://mythbuster.onrender.com/myths');
-            const data = await response.json();
-            setMyths(data.data || []); 
-          } catch (error) {
-            console.error('Error fetching myths:', error);
-          }
-        };
+        
     
         fetchData();
       }, []);
 
+      const handleDelete = (id) =>{
+        axios
+        .delete(`https://mythbuster.onrender.com/myths/${id}`)
+        .then(res => console.log(res))
+        .catch(err => console.error(err));
+        console.log("successful",id)
+        fetchData()
+    }
+    
     
   return (
     <div className="flex justify-center text-black items-center mt-32  w-[50%] m-auto">
       <div className="flex flex-col">
-      {myths.map((myth) => (
-        <div key={myth.postId} className="mb-6 p-4 bg-white rounded-md shadow-lg">
+      {myths.map((myth,id) => (
+        <div key={id} className="mb-6 p-4 bg-white rounded-md shadow-lg">
           <div className="flex flex-col md:flex-row items-center md:justify-between gap-4">
             <img
               src={myth.Image}
@@ -40,7 +50,8 @@ const RenderComponent = () => {
               <p className="mt-2 text-sm">{myth.Description}</p>
             </div>
           </div>
-          <div className="flex gap-4 mt-4">
+          <div className='flex justify-evenly items-center md:flex-row flex-col'>
+          <div className="flex gap-4 mt-4 md:flex-row flex-col">
               <button
           className='flex items-center gap-1 sm:text-lg border border-gray-300 px-3 py-1 rounded-full bg-gray-50 transition-colors focus:bg-gray-100 focus:outline-none focus-visible:border-gray-500'
       >
@@ -48,12 +59,27 @@ const RenderComponent = () => {
           <span>{myth.Likes}</span>
       </button>
        <button
-          className='flex items-center gap-1 sm:text-lg border border-gray-300 px-3 py-1 rounded-full bg-gray-50 transition-colors focus:bg-gray-100 focus:outline-none focus-visible:border-gray-500'
+          className='flex items-center gap-1  sm:text-lg border border-gray-300 px-3 py-1 rounded-full bg-gray-50 transition-colors focus:bg-gray-100 focus:outline-none focus-visible:border-gray-500'
       >
           <svg stroke="currentColor" fill="currentColor"  viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M464 512a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm200 0a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm-400 0a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm661.2-173.6c-22.6-53.7-55-101.9-96.3-143.3a444.35 444.35 0 0 0-143.3-96.3C630.6 75.7 572.2 64 512 64h-2c-60.6.3-119.3 12.3-174.5 35.9a445.35 445.35 0 0 0-142 96.5c-40.9 41.3-73 89.3-95.2 142.8-23 55.4-34.6 114.3-34.3 174.9A449.4 449.4 0 0 0 112 714v152a46 46 0 0 0 46 46h152.1A449.4 449.4 0 0 0 510 960h2.1c59.9 0 118-11.6 172.7-34.3a444.48 444.48 0 0 0 142.8-95.2c41.3-40.9 73.8-88.7 96.5-142 23.6-55.2 35.6-113.9 35.9-174.5.3-60.9-11.5-120-34.8-175.6zm-151.1 438C704 845.8 611 884 512 884h-1.7c-60.3-.3-120.2-15.3-173.1-43.5l-8.4-4.5H188V695.2l-4.5-8.4C155.3 633.9 140.3 574 140 513.7c-.4-99.7 37.7-193.3 107.6-263.8 69.8-70.5 163.1-109.5 262.8-109.9h1.7c50 0 98.5 9.7 144.2 28.9 44.6 18.7 84.6 45.6 119 80 34.3 34.3 61.3 74.4 80 119 19.4 46.2 29.1 95.2 28.9 145.8-.6 99.6-39.7 192.9-110.1 262.7z"></path></svg>
           <span>{myth.Comments.length}</span>
-      </button>         
+      </button>      
           </div>
+          <div className='flex gap-4 mt-3  md:ml-[300px] md:flex-row flex-col'>
+            <Link to={`/update/${myth._id}`}>
+               <button
+                  className='flex items-center gap-1 text-white font-semibold sm:text-lg border border-gray-300 px-3 py-1 rounded-full bg-green-400 transition-colors hover:scale-105'
+                  >
+                  Update
+              </button>
+        </Link>
+      <button
+          className='flex items-center text-white gap-1 font-semibold sm:text-lg border border-gray-300 px-3 py-1 rounded-full bg-red-500 transition-colors hover:scale-105' onClick={() => handleDelete(myth._id)}
+      >
+          Delete
+      </button>
+      </div>
+        </div>
         </div>
       ))}
       </div>
