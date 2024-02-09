@@ -12,8 +12,8 @@ async function getMythData(req, res) {
 
 async function findMythById(req, res) {
   try {
-    const id = parseInt(req.params.id);
-    const myth = await Myth.findOne({"postId":id});
+    const id = (req.params.id);
+    const myth = await Myth.findById({_id:id});
     if (!myth) {
       res.status(404).json({ message: "Myth not found" });
     } else {
@@ -39,9 +39,9 @@ async function addMyth(req, res) {
 
 async function updateMythById(req, res) {
   try {
-    const postId = parseInt(req.params.id); 
+    const id = (req.params.id); 
     const data  = req.body;
-    const updatedMyth = await Myth.findOneAndUpdate({"postId":postId}, data,{new:true});
+    const updatedMyth = await Myth.findByIdAndUpdate({_id:id}, data);
     if (!updatedMyth) {
       res.status(404).json({ message: "Myth not found" });
     } else {
@@ -56,8 +56,8 @@ async function updateMythById(req, res) {
 
 async function deleteMythById(req, res) {
   try {
-    const id = parseInt(req.params.id);
-    const deletedMyth = await Myth.findOneAndDelete({"postId":id});
+    const id = req.params.id;
+    const deletedMyth = await Myth.findByIdAndDelete({_id:id});
     if (!deletedMyth) {
       res.status(404).json({ message: "Myth not found" });
     } else {
