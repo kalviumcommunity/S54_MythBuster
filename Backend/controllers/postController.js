@@ -1,4 +1,12 @@
 import Myth from "../models/posts.js";
+import joi from "joi"
+
+const postValidationSchema = joi.object({
+  Title : joi.string().required(),
+  Description : joi.string().min(4),
+  Image : joi.string(),
+  Likes: joi.number()
+})
 
 async function getMythData(req, res) {
   try {
@@ -28,6 +36,14 @@ async function findMythById(req, res) {
 async function addMyth(req, res) {
   try {
     const  data  = req.body;
+    const { error, value } = postValidationSchema.validate(req.body, {
+      abortEarly: false
+    })
+  
+    if (error) {
+      console.log('not valid input')
+      return res.send(error.details)
+    }
     const newMyth = new Myth(data);
     await newMyth.save();
     res.status(201).json({ data: newMyth });
@@ -41,6 +57,14 @@ async function updateMythById(req, res) {
   try {
     const id = (req.params.id); 
     const data  = req.body;
+    const { error, value } = postValidationSchema.validate(req.body, {
+      abortEarly: false
+    })
+  
+    if (error) {
+      console.log('not valid input')
+      return res.send(error.details)
+    }
     const updatedMyth = await Myth.findByIdAndUpdate({_id:id}, data);
     if (!updatedMyth) {
       res.status(404).json({ message: "Myth not found" });
