@@ -6,6 +6,7 @@ import generateTokenAndSetCookie from "../utils/generateToken.js";
 const signup = async(req,res) =>{
     try{
         const {fullname,username,password,confirmPassword,gender} = req.body
+     
         if(!fullname || !username || !password || !confirmPassword || !gender){
             res.status(400).json({"error":"Invalid Data"});
         }
@@ -68,7 +69,7 @@ const login = async(req,res) =>{
 
         generateTokenAndSetCookie(user._id,res)
         res.status(200).json({
-            _id:user._id,
+            username:user.username,
             fullname:user.fullname,
             profilePic:user.profilePic
         })
