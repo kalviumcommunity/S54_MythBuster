@@ -92,4 +92,15 @@ const logout = async(req,res) =>{
     }
 }
 
-export {signup,login,logout}
+
+
+async function findUser(req, res) {
+    try {
+      const user = await User.find();
+      res.status(200).json({ data: user });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error fetching myths" });
+    }
+  }
+export {signup,login,logout,findUser}
