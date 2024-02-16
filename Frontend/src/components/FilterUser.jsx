@@ -8,7 +8,7 @@ const FilterUser = () => {
 
   const getUsers = () => {
     axios
-      .get(`http://localhost:5000/api/auth`)
+      .get(`https://mythbuster.onrender.com/api/auth`)
       .then((res) => {
         setUsers(res.data.data);
       })
@@ -18,7 +18,7 @@ const FilterUser = () => {
   useEffect(() => {
     const fetchData = async () => {
       await axios
-        .get(`http://localhost:5000/myths/`)
+        .get(`https://mythbuster.onrender.com/myths/`)
         .then((res) => {
           setNewMyth(res.data.data);
         })
