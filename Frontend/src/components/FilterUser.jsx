@@ -68,13 +68,13 @@ const FilterUser = () => {
 
       </div>
 
-      <div className="flex justify-center text-black items-center w-[50%] m-auto">
-        <div className="flex flex-col">
+      <div className="flex justify-center bg-white text-black items-center w-[50%] m-auto">
+        <div className="flex flex-col bg-white h-screen">
         {newMyth
           .filter((myth) => filterValue === "All Post" || myth.UserId == filterValue)
           .map((myth,id) => {
             return (
-              <div key={id} className="mb-6 p-4 bg-white rounded-md shadow-lg">
+              <div key={id} className="mb-6 p-4 bg-white h-full rounded-md shadow-lg">
               <div className="flex flex-col md:flex-row items-center md:justify-between gap-4">
                 <img
                   src={myth.Image}
