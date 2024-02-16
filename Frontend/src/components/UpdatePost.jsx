@@ -43,7 +43,7 @@ const UpdatePost = () => {
   };
   useEffect(() => {
     getOldData(id);
-  }, []); 
+  }, [id]); 
   return (
     <div className="flex min-h-screen items-center justify-center">
       <div className="relative flex flex-col rounded-xl bg-transparent bg-clip-border text-gray-700 shadow-none">

@@ -50,13 +50,13 @@ function NavBar() {
         >
           <div className="lg:flex lg:items-stretch lg:justify-end ml-auto">
             <Link
-              to="myths"
+              to="filter"
               className="flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-blue-700 no-underline  font-semibold flex items-center hover:bg-grey-dark"
             >
-              Myths
+              Filter
             </Link>
             <Link
-              to="signin"
+              to="signup"
               className="flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-white no-underline text-black font-semibold flex items-center hover:bg-grey-dark"
             >
               <button className="bg-white p-2 rounded text-blue-500 font-bold hover:scale-105">Sign Up</button>
