@@ -6,6 +6,7 @@ import generateTokenAndSetCookie from "../utils/generateToken.js";
 const signup = async(req,res) =>{
     try{
         const {fullname,username,password,confirmPassword,gender} = req.body
+     
         if(!fullname || !username || !password || !confirmPassword || !gender){
             res.status(400).json({"error":"Invalid Data"});
         }
@@ -68,7 +69,7 @@ const login = async(req,res) =>{
 
         generateTokenAndSetCookie(user._id,res)
         res.status(200).json({
-            _id:user._id,
+            username:user.username,
             fullname:user.fullname,
             profilePic:user.profilePic
         })
@@ -91,4 +92,15 @@ const logout = async(req,res) =>{
     }
 }
 
-export {signup,login,logout}
+
+
+async function findUser(req, res) {
+    try {
+      const user = await User.find();
+      res.status(200).json({ data: user });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error fetching myths" });
+    }
+  }
+export {signup,login,logout,findUser}

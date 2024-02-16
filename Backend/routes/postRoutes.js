@@ -7,7 +7,7 @@ const router = express.Router()
 router.get("/",getMythData)
 router.get("/:id",findMythById)
 router.post("/",addMyth)
-router.post("/:id",updateMythById)
+router.put("/:id",updateMythById)
 router.delete("/:id",deleteMythById)
 
 

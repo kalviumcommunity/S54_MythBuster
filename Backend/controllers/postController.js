@@ -1,4 +1,12 @@
 import Myth from "../models/posts.js";
+import joi from "joi"
+
+const postValidationSchema = joi.object({
+  Title : joi.string().required(),
+  Description : joi.string().min(4),
+  Image : joi.string(),
+  Likes: joi.number()
+})
 
 async function getMythData(req, res) {
   try {
@@ -12,8 +20,8 @@ async function getMythData(req, res) {
 
 async function findMythById(req, res) {
   try {
-    const id = parseInt(req.params.id);
-    const myth = await Myth.findOne({"postId":id});
+    const id = (req.params.id);
+    const myth = await Myth.findById({_id:id});
     if (!myth) {
       res.status(404).json({ message: "Myth not found" });
     } else {
@@ -28,6 +36,14 @@ async function findMythById(req, res) {
 async function addMyth(req, res) {
   try {
     const  data  = req.body;
+    const { error, value } = postValidationSchema.validate(req.body, {
+      abortEarly: false
+    })
+  
+    if (error) {
+      console.log('not valid input')
+      return res.send(error.details)
+    }
     const newMyth = new Myth(data);
     await newMyth.save();
     res.status(201).json({ data: newMyth });
@@ -39,9 +55,17 @@ async function addMyth(req, res) {
 
 async function updateMythById(req, res) {
   try {
-    const postId = parseInt(req.params.id); 
+    const id = (req.params.id); 
     const data  = req.body;
-    const updatedMyth = await Myth.findOneAndUpdate({"postId":postId}, data,{new:true});
+    const { error, value } = postValidationSchema.validate(req.body, {
+      abortEarly: false
+    })
+  
+    if (error) {
+      console.log('not valid input')
+      return res.send(error.details)
+    }
+    const updatedMyth = await Myth.findByIdAndUpdate({_id:id}, data);
     if (!updatedMyth) {
       res.status(404).json({ message: "Myth not found" });
     } else {
@@ -56,8 +80,8 @@ async function updateMythById(req, res) {
 
 async function deleteMythById(req, res) {
   try {
-    const id = parseInt(req.params.id);
-    const deletedMyth = await Myth.findOneAndDelete({"postId":id});
+    const id = req.params.id;
+    const deletedMyth = await Myth.findByIdAndDelete({_id:id});
     if (!deletedMyth) {
       res.status(404).json({ message: "Myth not found" });
     } else {

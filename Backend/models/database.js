@@ -146,7 +146,7 @@ const myth10 = new Myth({
 const mythData = [myth1,myth2,myth3,myth4,myth5,myth6,myth7,myth8,myth9,myth10 
   
 ];
-
+ 
 Myth.insertMany(mythData)
   .then(() => console.log('Myths added successfully!'))
   .catch(err => console.error('Error adding myths:', err));
