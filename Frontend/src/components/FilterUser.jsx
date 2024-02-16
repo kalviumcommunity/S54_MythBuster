@@ -25,7 +25,7 @@ const FilterUser = () => {
         .catch((err) => console.log(err));
     };
     fetchData();
-    getUsers(); // Call getUsers inside useEffect to fetch users when component mounts
+    getUsers();
   }, []);
 
   const onFilterValue = (e) => {
@@ -50,7 +50,7 @@ const FilterUser = () => {
                   by
                   default
                 >
-                  <option value="All POST">All Post</option>
+                  <option value="All Post">All Post</option>
                   {users &&
                     users.map((user, id) => (
                       <option value={user._id} key={id}>
