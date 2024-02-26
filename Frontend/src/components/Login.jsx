@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
     const navigate = useNavigate(); 
@@ -11,19 +13,28 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('https://mythbuster.onrender.com/api/auth/login/', {
+            const response = await fetch('http://localhost:5000/api/auth/login/', {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(login)
             });
             if (!response.ok) {
                 throw new Error(`Login failed: ${response.statusText}`);
-              }
+            }
         
-              const data = await response.json();
-        
-              console.log("Login successful:", data); 
-              navigate("/", { replace: true }); 
+            const data = await response.json();
+
+            const jwtToken = (data.token);
+            console.log(jwtToken)
+            if (jwtToken) {
+                document.cookie = `jwt=${jwtToken}`;
+            }
+    
+            console.log("Login successful:", data); 
+            toast.success('Login successful');
+            setTimeout(()=>{
+                navigate("/", { replace: true }); 
+            },2000)
             
         } catch (error) {
             console.error('Error fetching myths:', error);
@@ -68,6 +79,7 @@ const Login = () => {
                 </form>
                 
             </div>
+            <ToastContainer />
         </div>
     );
 };

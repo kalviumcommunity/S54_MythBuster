@@ -35,7 +35,7 @@ const FilterUser = () => {
 
 
   return (
-    <div className="bg-white h-screen">
+    <div className="bg-white min-h-[100vh] h-full">
       <div className="relative flex flex-col rounded-xl bg-transparent bg-clip-border text-gray-700       shadow-none">
         <div className="flex h-[30vh]  mb-5 items-center justify-center flex-col">
           <h4 className="block font-sans text-2xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
@@ -69,7 +69,7 @@ const FilterUser = () => {
       </div>
 
       <div className="flex justify-center bg-white text-black items-center w-[50%] m-auto">
-        <div className="flex flex-col bg-white h-screen">
+        <div className="flex flex-col bg-white min-h-[100vh] h-full">
         {newMyth
           .filter((myth) => filterValue === "All Post" || myth.UserId == filterValue)
           .map((myth,id) => {

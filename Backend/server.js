@@ -4,11 +4,14 @@ import {ConnectToDB} from "./db/connectToMongoDB.js"
 import postRoutes from "./routes/postRoutes.js"
 import authRoutes from "./routes/authRoutes.js"
 import cors from "cors"
+import cookieParser from "cookie-parser"
 
 dotenv.config()
 const app = express()
 const Port = process.env.PORT || 5000
 
+app.use(cookieParser())
+app.use(express.json())
 app.use(cors())
 
 app.get("/",(req,res)=>{

@@ -1,6 +1,6 @@
 import Myth from "../models/posts.js";
 import joi from "joi"
-
+import jwt from "jsonwebtoken"
 const postValidationSchema = joi.object({
   Title : joi.string().required(),
   Description : joi.string().min(4),
@@ -35,7 +35,10 @@ async function findMythById(req, res) {
 
 async function addMyth(req, res) {
   try {
+    const {authorization} = req.headers
     const  data  = req.body;
+    const tokenResult = jwt.verify(authorization,process.env.JWT_SECRET)
+    console.log(tokenResult)
     const { error, value } = postValidationSchema.validate(req.body, {
       abortEarly: false
     })

@@ -1,8 +1,22 @@
-import  { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 function NavBar() {
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("user");
+    if (loggedInUser) {
+      setUser(JSON.parse(loggedInUser));
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+    window.location.href = "/login";
+  };
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
@@ -55,19 +69,36 @@ function NavBar() {
             >
               Filter
             </Link>
-            <Link
-              to="signup"
-              className="flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-white no-underline text-black font-semibold flex items-center hover:bg-grey-dark"
-            >
-              <button className="bg-white p-2 rounded text-blue-500 font-bold hover:scale-105">Sign Up</button>
-            </Link>
-            <Link
-              to="login"
-              className="flex-no-grow text-black flex-no-shrink relative py-2 px-4 leading-normal text-white no-underline font-semibold flex items-center hover:bg-grey-dark"
-            >
-                <button className="bg-blue-600 p-2 rounded text-white hover:scale-105">Log In</button>
-              
-            </Link>
+            {!user ? (
+              <>
+                <Link
+                  to="signup"
+                  className="flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-white no-underline text-black font-semibold flex items-center hover:bg-grey-dark"
+                >
+                  <button className="bg-white p-2 rounded text-blue-500 font-bold hover:scale-105">
+                    Sign Up
+                  </button>
+                </Link>
+                <Link
+                  to="login"
+                  className="flex-no-grow text-black flex-no-shrink relative py-2 px-4 leading-normal text-white no-underline font-semibold flex items-center hover:bg-grey-dark"
+                >
+                  <button className="bg-blue-600 p-2 rounded text-white hover:scale-105">
+                    Log In
+                  </button>
+                </Link>
+              </>
+            ) : (
+              <div className="flex items-center">
+                <span className="mr-4">{user.username}</span>
+                <button
+                  onClick={handleLogout}
+                  className="bg-red-600 p-2 rounded text-white hover:scale-105"
+                >
+                  Log Out
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </nav>

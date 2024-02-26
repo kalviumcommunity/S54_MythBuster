@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { getCookie } from "../utils/cookies";
 
 const AddPost = () => {
     const [newMyth, setNewMyth] = useState({
@@ -7,13 +8,14 @@ const AddPost = () => {
         Image: "",
         Likes: 0
     });
-
+    const token = getCookie("jwt")
+    console.log(token)
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const response = await fetch('https://mythbuster.onrender.com/myths', {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: { "Content-Type": "application/json", "authorization": token },
                 body: JSON.stringify(newMyth)
             });
             const data = await response.json();

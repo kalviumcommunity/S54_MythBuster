@@ -5,16 +5,21 @@ import generateTokenAndSetCookie from "../utils/generateToken.js";
 
 const signup = async(req,res) =>{
     try{
-        const {fullname,username,password,confirmPassword,gender} = req.body
+        const {fullname,username,email,password,confirmPassword,gender} = req.body
      
-        if(!fullname || !username || !password || !confirmPassword || !gender){
+        if(!fullname || !username || !email || !password || !confirmPassword || !gender){
             res.status(400).json({"error":"Invalid Data"});
         }
         if (password !== confirmPassword){
             return res.status(400).send('Passwords do not match')
         }
 
+          //* Checking If The User Exists In Database Or Not
+          const exitingUser = await User.findOne({email})
         
+          if(exitingUser){
+            return res.status(401).send("Username already exists with this email")
+          }
         // ^ Hashing Password
         const salt = await bcrypt.genSalt(10)
         const hashedPassword = await bcrypt.hash(password,salt)
@@ -27,6 +32,7 @@ const signup = async(req,res) =>{
         const newUser = new User({
             fullname,
             username,
+            email,
             password:hashedPassword,
             gender,
             profilePic : gender === "male" ? boyProfilePic : girlProfilePic
@@ -34,7 +40,9 @@ const signup = async(req,res) =>{
 
         if(newUser){
             // Generate JWT token here
-            generateTokenAndSetCookie(newUser._id,res)
+            // generateTokenAndSetCookie(newUser._id,res)
+            const jwt =await generateTokenAndSetCookie(newUser._id,res)
+            console.log(jwt)
             await newUser.save()
 
             //^ Sending the Status and Response
@@ -42,7 +50,8 @@ const signup = async(req,res) =>{
                 _id:newUser._id,
                 fullname:newUser.fullname,
                 username:newUser.username,
-                profilePic:newUser.profilePic
+                profilePic:newUser.profilePic,
+                token: jwt
             });
         }else{
             res.status(400).json({error: "Invalid user data"})
@@ -67,11 +76,13 @@ const login = async(req,res) =>{
             return res.status(400).json({error:"Invalid Username or Password"})
         }
 
-        generateTokenAndSetCookie(user._id,res)
+        const jwt = await generateTokenAndSetCookie(user._id,res)
+        console.log(jwt)
         res.status(200).json({
             username:user.username,
             fullname:user.fullname,
-            profilePic:user.profilePic
+            profilePic:user.profilePic,
+            token : jwt
         })
 
     }catch(error){
