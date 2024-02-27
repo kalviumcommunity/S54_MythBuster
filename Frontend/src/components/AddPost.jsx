@@ -18,7 +18,7 @@ const AddPost = () => {
         e.preventDefault();
         try {
            
-            const response = await fetch('http://localhost:5000/myths', {
+            const response = await fetch('https://mythbuster.onrender.com/myths', {
                 method: "POST",
                 headers: { "Content-Type": "application/json", "authorization": token },
                 body: JSON.stringify(newMyth)
