@@ -1,19 +1,21 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { getCookie } from "../utils/cookies";
 
 function NavBar() {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const loggedInUser = localStorage.getItem("user");
+    const loggedInUser = getCookie("user");
     if (loggedInUser) {
-      setUser(JSON.parse(loggedInUser));
+      setUser(loggedInUser);
     }
-  }, []);
+  }, [user]);
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
+    document.cookie = "user" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "UserId" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     setUser(null);
     window.location.href = "/login";
   };
@@ -63,6 +65,11 @@ function NavBar() {
           } lg:flex lg:items-stretch lg:flex-no-shrink lg:flex-grow`}
         >
           <div className="lg:flex lg:items-stretch lg:justify-end ml-auto">
+          
+          {user && <div className="flex justify-center items-center mx-5 px-2 bg-black">
+          <span className="text-xl text-white uppercase">{user}</span>
+          </div>}
+
             <Link
               to="filter"
               className="flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-blue-700 no-underline  font-semibold flex items-center hover:bg-grey-dark"
@@ -90,16 +97,17 @@ function NavBar() {
               </>
             ) : (
               <div className="flex items-center">
-                <span className="mr-4">{user.username}</span>
                 <button
                   onClick={handleLogout}
-                  className="bg-red-600 p-2 rounded text-white hover:scale-105"
+                  className="bg-red-600 p-1 rounded text-white mx-2"
                 >
                   Log Out
                 </button>
               </div>
             )}
           </div>
+        </div>
+        <div>
         </div>
       </nav>
     </>

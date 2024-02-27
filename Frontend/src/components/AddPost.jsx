@@ -1,25 +1,34 @@
 import { useState } from "react";
 import { getCookie } from "../utils/cookies";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
 
 const AddPost = () => {
+    const navigate = useNavigate(); 
     const [newMyth, setNewMyth] = useState({
         Title: "",
         Description: "",
         Image: "",
+        UserId:getCookie('UserId'),
         Likes: 0
     });
     const token = getCookie("jwt")
-    console.log(token)
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('https://mythbuster.onrender.com/myths', {
+           
+            const response = await fetch('http://localhost:5000/myths', {
                 method: "POST",
                 headers: { "Content-Type": "application/json", "authorization": token },
                 body: JSON.stringify(newMyth)
             });
             const data = await response.json();
             console.log(data);
+            toast.success('Post Added Successful');
+            setTimeout(()=>{
+                navigate("/", { replace: true }); 
+            },2000)
         } catch (error) {
             console.error('Error fetching myths:', error);
         }

@@ -5,7 +5,8 @@ const postValidationSchema = joi.object({
   Title : joi.string().required(),
   Description : joi.string().min(4),
   Image : joi.string(),
-  Likes: joi.number()
+  Likes: joi.number(),
+  UserId:joi.required()
 })
 
 async function getMythData(req, res) {

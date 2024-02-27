@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const UpdatePost = () => {
   const [newMyth, setNewMyth] = useState({
@@ -10,6 +12,7 @@ const UpdatePost = () => {
     Likes: 0,
   });
 
+  const navigate = useNavigate(); 
   const { id } = useParams();
 
   const handleSubmit = async (e) => {
@@ -22,6 +25,11 @@ const UpdatePost = () => {
       });
       const data = await response.json();
       console.log(data);
+      toast.success('Myth Updated Successful');
+      setTimeout(()=>{
+          navigate("/", { replace: true }); 
+      },3000)
+
     } catch (error) {
       console.error("Error fetching myths:", error);
     }

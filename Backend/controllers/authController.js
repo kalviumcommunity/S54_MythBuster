@@ -79,6 +79,7 @@ const login = async(req,res) =>{
         const jwt = await generateTokenAndSetCookie(user._id,res)
         console.log(jwt)
         res.status(200).json({
+            _id:user._id,
             username:user.username,
             fullname:user.fullname,
             profilePic:user.profilePic,

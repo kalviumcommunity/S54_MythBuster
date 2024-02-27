@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { getCookie } from '../utils/cookies';
 
 const RenderComponent = () => {
     const [myths, setMyths] = useState([]);
@@ -24,11 +25,18 @@ const RenderComponent = () => {
         fetchData();
     }, []);
 
-    const handleDelete = async (id) => {
+    const handleDelete = async (id,userid) => {
         try {
-            await axios.delete(`https://mythbuster.onrender.com/myths/${id}`);
-            setMyths(myths.filter(myth => myth._id !== id));
-            toast.success('Myth deleted successfully');
+            if(getCookie("UserId") == userid ){
+                console.log(getCookie("UserId") , userid)   
+                await axios.delete(`https://mythbuster.onrender.com/myths/${id}`);
+                setMyths(myths.filter(myth => myth._id !== id));
+                toast.success('Myth deleted successfully');
+
+            }else{
+                toast.error(`Login as the ${"Post's Owner to Delete"}`);
+
+            }
         } catch (error) {
             console.error('Error deleting myth:', error);
             toast.error('Error deleting myth');
@@ -74,7 +82,7 @@ const RenderComponent = () => {
                                 <Link to={`/update/${myth._id}`}>
                                     <button className='btn btn-primary'>Update</button>
                                 </Link>
-                                <button className='btn btn-danger' onClick={() => handleDelete(myth._id)}>Delete</button>
+                                <button className='btn btn-danger' onClick={() => handleDelete(myth._id,myth.UserId)}>Delete</button>
                             </div>
                         </div>
                     </div>
