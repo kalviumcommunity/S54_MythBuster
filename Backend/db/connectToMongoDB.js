@@ -9,7 +9,7 @@ async function ConnectToDB() {
 
   mongoConnection = await mongoose.connect(mongoUri);
 
-  console.log('Connected to MongoDB database.');
+  console.log("Connected to MongoDB database.");
 }
 
 async function stopDatabase() {
@@ -18,7 +18,7 @@ async function stopDatabase() {
   await mongoConnection.close();
   mongoConnection = null;
 
-  console.log('Disconnected from local MongoDB database.');
+  console.log("Disconnected from local MongoDB database.");
 }
 
 function isConnected() {
